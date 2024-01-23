@@ -24,12 +24,27 @@ url="$2"
 #------------------------------------------------------------------------------
 
 for f in ./*.js; do
-  jsdoc $f
-  #jsdoc2md ${f} > "${f%.*}.md"
+    # generamos la doc en html
+    jsdoc $f
+    # generamos la doc en md
+    #jsdoc2md ${f} > "${f%.*}.md"
+    # comentado porque en windows no se instala fácilmente
+    # pese a ésto, se adjunta una muestra generada en linux
 done
 
+# Sincronizamos los directorios local:out y remoto:~/www/2023/varios/ED
 rsync -azvP ./out/ luis@luiscastelar.duckdns.org:~/www/2023/varios/ED
+
+# capturamos al salida del último comando y verificamos si fue correcta (=0)
 ret=$?
-[ $ret -eq 0 ] && exit 0; || exit 1;
+if [ $ret -eq 0 ]; then
+    echo "La documentación fue generada y sincronizada."
+    echo "La puedes consultar en https://luiscastelar.duckdns.org/2023/varios/ED/"
+    exit 0
+else
+    echo "Se ha producido un error generando la sincronización."
+    exit 1
+fi
+
 #------------------------------------------------------------------------------
 #exit 0
