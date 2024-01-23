@@ -1,7 +1,7 @@
 /**
  * Prueba de API
  * @module API
- * @author Luis Fe <luisferreira@iescastelar.com>
+ * @author Luis Ferreira <mi.email@iescastelar.com>
  */
  
 /** API Class description */
