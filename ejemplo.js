@@ -1,11 +1,11 @@
 /**
  * Prueba de API
  * @module API
- * @author Luis Ferreira <mi.email@iescastelar.com>
+ * @author Profesor <mi.email@iescastelar.com>
  */
  
 /** API Class description */
-class API {
+class MiClase {
     /**
      * Constructor de clase
      * @param {Objeto} config ejemplo de descripción
