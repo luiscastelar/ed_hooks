@@ -16,6 +16,14 @@ class MiClase {
          /** @public */
          this.dos = "ejemplo";
      }
+
+     /**
+      * Otro método chulo
+      * @param {cadena} dice hola mundo
+      */
+      holaMundo( cadena ){
+        console.log( "Hola" + cadena);
+      }
 }
 module.exports = MiClase;
 // prueba de cambios
