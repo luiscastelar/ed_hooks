@@ -1,0 +1,16 @@
+#!/bin/bash
+
+#export GIT_DIR=$(cd $GIT_DIR; pwd)
+GIT_DIR=$HOME/repos/despliegueConGit.git
+GIT_WORK_TREE=$HOME/www/demo
+
+if [ ! -d $GIT_WORK_TREE ]; then mkdir $GIT_WORK_TREE; fi
+
+read oldrev newrev ref
+rama=`echo $ref | cut -d/ -f3`
+git --git-dir=$GIT_DIR --work-tree=$GIT_WORK_TREE checkout -f $rama
+echo "Desplegando rama $rama"
+cd $GIT_WORK_TREE
+git --git-dir=$GIT_DIR --work-tree=$GIT_WORK_TREE submodule update --init --recursive
+#docker-compose -f docker-compose-prod.yml down &&
+#docker-compose -f docker-compose-prod.yml up -d
