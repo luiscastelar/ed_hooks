@@ -1,0 +1,3 @@
+#!/bin/bash
+FECHA=$(date "+%Y-%m-%d_%H:%M")
+echo "$FECHA -> Push recibido correctamente" >> ~/log-post-receive.log
