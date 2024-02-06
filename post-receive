@@ -1,16 +1,26 @@
 #!/bin/bash
+# Directorio del repositorio BARE
+GIT_DIR=$HOME/repo_bare
 
-#export GIT_DIR=$(cd $GIT_DIR; pwd)
-GIT_DIR=$HOME/repos/despliegueConGit.git
-GIT_WORK_TREE=$HOME/www/demo
-
+# Directorio donde queremos desplegar
+GIT_WORK_TREE=$HOME/www
 if [ ! -d $GIT_WORK_TREE ]; then mkdir $GIT_WORK_TREE; fi
 
+# Captura y procesado de argumentos de entrada del hook
+#    El hook es llamado y se le pasa por STDIN los HASHes de commit
+#    desde el último anterior hasta el nuevo, así como la referencia
+#    a la rama del tipo 'refs/tags/main' por lo que debe ser procesado
 read oldrev newrev ref
 rama=`echo $ref | cut -d/ -f3`
+
+# Despliegue de la rama sobre el directorio de trabajo
 git --git-dir=$GIT_DIR --work-tree=$GIT_WORK_TREE checkout -f $rama
 echo "Desplegando rama $rama"
 cd $GIT_WORK_TREE
+
+# Incluimos actializaciones de submódulos
 git --git-dir=$GIT_DIR --work-tree=$GIT_WORK_TREE submodule update --init --recursive
-#docker-compose -f docker-compose-prod.yml down &&
-#docker-compose -f docker-compose-prod.yml up -d
+
+# Recarga del contenedor del servicio (cuando sea necesario)
+# docker compose -f docker-compose-prod.yml down &&
+# docker compose -f docker-compose-prod.yml up -d

@@ -1,0 +1,14 @@
+version: '3.3'
+services:
+  nginx:
+    ports:
+      # Izquierda el público del host
+      # Derecha no tocar
+      - 8085:80
+    volumes:
+      - $HOME/www:/usr/share/nginx/html
+    environment:
+      # El número que os devuelva el comando `id`
+      - PUID=1000
+      - PGID=1000
+    image: nginx
